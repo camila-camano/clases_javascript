@@ -23,6 +23,7 @@ let products = [
 
 // Carrito inicial
 let shopping_cart = [];
+let final_price = 0;
 
 //----------------------------- Simulador de menu de compras
 
@@ -62,6 +63,8 @@ function finalPrice() {
   shopping_cart.forEach((elem) => {
     compraTotal += elem.price * elem.amount;
   });
+  console.log(final_price);
+  final_price += compraTotal;
   return compraTotal;
 }
 
@@ -88,3 +91,34 @@ while (flower_name !== "ESC") {
 }
 
 alert("El total de su compra es " + finalPrice());
+
+function mostrarProductosEnHTML(array) {
+  for (const producto of array) {
+    let contenedor = document.createElement("carta");
+    contenedor.innerHTML = `
+          <div class="card">
+              <div class="card-body">
+                  <h3 class="card-title"> Nombre: ${producto.flower}</h3>
+                  <p class="card-text"> Cantidad: ${producto.amount}</p>
+                  <p class="card-text"> Precio unidad: $${producto.price}</p>
+                  <p class="card-text"> Precio total: $${
+                    producto.price * producto.amount
+                  }</p>
+            
+              </div>
+          </div>
+          `;
+    document.getElementById("container").appendChild(contenedor);
+  }
+}
+
+function showFinalPrice() {
+  let fin = document.querySelector("#fin");
+  fin.innerHTML = `
+  <h4 class = "card-title"> Su precio final total es: $${final_price}</h4>
+
+  `;
+}
+
+mostrarProductosEnHTML(shopping_cart);
+showFinalPrice();
