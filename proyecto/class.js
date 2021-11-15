@@ -45,9 +45,8 @@ function addToCart(name, amount) {
   if (producto.stock >= amount) {
     let comprado = new Compra(name, producto.price, amount);
     shopping_cart.push(comprado);
-    console.log(producto);
     producto.stock -= amount;
-    console.log(producto);
+    final_price += comprado.amount * comprado.price;
     alert(`Usted ha comprado ${amount} ${name}s`);
   } else {
     alert(
@@ -90,7 +89,7 @@ while (flower_name !== "ESC") {
   }
 }
 
-alert("El total de su compra es " + finalPrice());
+alert("El total de su compra es " + final_price);
 
 function mostrarProductosEnHTML(array) {
   for (const producto of array) {
@@ -116,7 +115,6 @@ function showFinalPrice() {
   let fin = document.querySelector("#fin");
   fin.innerHTML = `
   <h4 class = "card-title"> Su precio final total es: $${final_price}</h4>
-
   `;
 }
 
