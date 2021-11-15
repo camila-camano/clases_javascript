@@ -1,5 +1,7 @@
 console.log("hola mundo");
 
+//--------------------------- Inicialización de variables y clases.
+
 // Clase para los productos, que tiene el nombre de la flor, su precio y el stock.
 class Product {
   constructor(flower, price, stock) {
@@ -25,14 +27,35 @@ let products = [
 let shopping_cart = [];
 let final_price = 0;
 
+//-----------------------------Imprimir catálogo
+
+function mostrarCatálogo(array) {
+  for (const producto of array) {
+    let contenedor = document.createElement("carta");
+    contenedor.innerHTML = `
+          <div class="card">
+              <div class="card-body2">
+                  <h3 class="card-title"> Nombre: ${producto.flower}</h3>
+                  <p class="card-text"> Cantidad en stock: ${producto.stock}</p>
+                  <p class="card-text"> Precio unidad: $${producto.price}</p>
+              </div>
+          </div>
+          `;
+    document.getElementById("catalogo").appendChild(contenedor);
+  }
+}
+
+mostrarCatálogo(products);
 //----------------------------- Simulador de menu de compras
 
 // Agrega una cantidad de una flor en particular al carrito.
 //   Si lo que el usuario quiere no está entre los productos, sale.
 //   Si pide más de las que hay disponibles, no agrega nada y el usuario deberá intentar de nuevo.
 //   Actualiza los valores del stock si se realiza una compra.
+
 function addToCart(name, amount) {
   let producto;
+  amount = parseInt(amount);
   producto = products.find((e) => e.flower === name.toLowerCase());
 
   // Chequeo si el name existe.
@@ -43,28 +66,27 @@ function addToCart(name, amount) {
 
   //Chequea si hay stock.
   if (producto.stock >= amount) {
-    let comprado = new Compra(name, producto.price, amount);
-    shopping_cart.push(comprado);
-    producto.stock -= amount;
-    final_price += comprado.amount * comprado.price;
-    alert(`Usted ha comprado ${amount} ${name}s`);
+    //chequea si ya está en el carrito
+    check = shopping_cart.find((e) => e.flower === name.toLowerCase());
+
+    if (check == undefined) {
+      //no está en el carrito, lo creo
+      let comprado = new Compra(name, producto.price, amount);
+      shopping_cart.push(comprado);
+      producto.stock -= amount;
+      final_price += comprado.amount * comprado.price;
+      alert(`Usted ha comprado ${amount} ${name}s`);
+    } else {
+      //está en el carrito, le sumo la cantidad nueva y lo sumo al precio final
+      check.amount += amount;
+      final_price += amount * check.price;
+    }
   } else {
+    //no hay stock del producto
     alert(
       `Usted pidió ${amount} ${name}s y actualmente hay ${producto.stock}. Intente de nuevo.`
     );
   }
-}
-
-// Calcula el total a pagar
-function finalPrice() {
-  let compraTotal = 0;
-
-  shopping_cart.forEach((elem) => {
-    compraTotal += elem.price * elem.amount;
-  });
-  console.log(final_price);
-  final_price += compraTotal;
-  return compraTotal;
 }
 
 let flower_name = prompt(`¿Qué flor desea comprar? O escriba ESC para terminar.:
@@ -83,12 +105,11 @@ while (flower_name !== "ESC") {
 2. Rosa.
 3. Petunia.`);
   if (flower_name !== "ESC") {
-    flower_amount = prompt(
-      `¿Cuántas ${flower_name.toLowerCase()}s quiere comprar? `
+    flower_amount = parseInt(
+      prompt(`¿Cuántas ${flower_name.toLowerCase()}s quiere comprar? `)
     );
   }
 }
-
 alert("El total de su compra es " + final_price);
 
 function mostrarProductosEnHTML(array) {

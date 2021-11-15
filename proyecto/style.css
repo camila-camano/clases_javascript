@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/*----------carrito-------------*/
 .carrito {
   display: flex;
   flex-direction: row;
@@ -28,4 +29,19 @@
   font-size: 20px;
   margin: 10px;
   padding-top: 10px;
+}
+
+/*------catalogo-----------*/
+.catalogo {
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: center;
+}
+
+.card-body2 {
+  padding: 20px;
+  background-color: rgb(255, 240, 179);
+  border: 2px bold black;
 }
