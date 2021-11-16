@@ -4,9 +4,9 @@ console.log("hola mundo");
 
 // Clase para los productos, que tiene el nombre de la flor, su precio y el stock.
 class Product {
-  constructor(id, flower, price, stock) {
+  constructor(id, flower_name, price, stock) {
     (this.id = id),
-      (this.flower = flower),
+      (this.flower_name = flower_name),
       (this.price = price),
       (this.stock = stock);
   }
@@ -14,9 +14,9 @@ class Product {
 
 // Clase para las compras, con el nombre de la flor, el precio y la cantidad deseada.
 class Compra {
-  constructor(id, flower, price, amount) {
+  constructor(id, flower_name, price, amount) {
     (this.id = id),
-      (this.flower = flower),
+      (this.flower_name = flower_name),
       (this.price = price),
       (this.amount = amount);
   }
@@ -24,18 +24,20 @@ class Compra {
 
 // Productos iniciales
 let products = [
-  { id: 1, flower: "margarita", price: 50, stock: 12 },
-  { id: 2, flower: "rosa", price: 150, stock: 23 },
-  { id: 3, flower: "petunia", price: 100, stock: 20 },
+  { id: 1, flower_name: "margarita", price: 50, stock: 12 },
+  { id: 2, flower_name: "rosa", price: 150, stock: 23 },
+  { id: 3, flower_name: "petunia", price: 100, stock: 20 },
 ];
 
 // Carrito inicial
 let shopping_cart = [];
 let final_price = 0;
 
-function addStock(flower, amount) {
+function addStock(flower_name, amount) {
   //encuentro la flor
-  let producto = products.find((e) => e.flower === flower.toLowerCase());
+  let producto = products.find(
+    (e) => e.flower_name === flower_name.toLowerCase()
+  );
   if (producto != undefined) {
     producto.stock += amount;
   }
@@ -51,12 +53,13 @@ function addStock(flower, amount) {
 function addToCart(name, amount) {
   let producto;
   amount = parseInt(amount);
-  producto = products.find((e) => e.flower === name.toLowerCase());
+  producto = products.find((e) => e.flower_name === name.toLowerCase());
+  console.log(producto.flower_name);
 
   //Chequea si hay stock.
   if (producto.stock >= amount) {
     //chequea si ya está en el carrito
-    check = shopping_cart.find((e) => e.flower === name.toLowerCase());
+    check = shopping_cart.find((e) => e.flower_name === name.toLowerCase());
 
     if (check == undefined) {
       //no está en el carrito, lo creo
@@ -83,30 +86,12 @@ function addToCart(name, amount) {
   }
 }
 
-function mostrarProductosEnHTML(array) {
-  for (const producto of array) {
-    let contenedor = document.createElement("carta");
-    contenedor.innerHTML = `
-          <div class="card">
-              <div class="card-body">
-                  <p class="card-title"> Usted ha agregado: ${producto.flower} al carrito</p>
-                  <p class="card-text"> Cantidad: ${producto.amount}</p>
-                  <p class="card-text"> Precio por unidad: $${producto.price}</p>
-                  
-            
-              </div>
-          </div>
-          `;
-    document.getElementById("container").appendChild(contenedor);
-  }
-}
-
 function emptyShoppingCart() {
   //seteo el total a pagar en 0
   final_price = 0;
   //renuevo el stock
   for (const producto of shopping_cart) {
-    addStock(producto.flower, producto.amount);
+    addStock(producto.flower_name, producto.amount);
   }
 
   shopping_cart.splice(0, shopping_cart.length);
@@ -135,51 +120,37 @@ function showFinalPrice() {
 
 //-----------------------------Imprimir catálogo y sistema de compras.
 
-function mostrarCatálogo(array) {
-  for (const producto of array) {
+function mostrarCatálogo() {
+  products.forEach((producto) => {
     let contenedor = document.createElement("carta");
     contenedor.innerHTML = `
           <div class="card">
               <div class="card-body2">
-                  <h3 class="card-title"> Nombre: ${producto.flower}</h3>
+                  <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
                   <p class="card-text"> Cantidad en stock: ${producto.stock}</p>
                   <p class="card-text"> Precio unidad: $${producto.price}</p>
-                  <form id="form_compra"> 
-                  <input type="number" id="compra">
-                  <input type="submit" value="Agregar"> 
-                  </form>
+                  
+                    <input type="hidden" value="${producto.flower_name}" >
+                    <input type="number" id="compra">
+                    <input type="button" class="boton_compra" value="Agregar"> 
+                  
               </div>
           </div>
           `;
+    document.getElementById("catalogo").appendChild(contenedor);
+  });
 
-    // Agrego botón
+  //evento al comprar
+  $(document).ready(function () {
+    $(".boton_compra").click(function (e) {
+      let hijos = $(e.target).parent().children();
 
-    let boton = document.createElement("button");
-    boton.innerText = "Agregar al carrito";
-    boton.id = producto.id;
-
-    $(`#form_compra`).submit(function (e) {
-      e.preventDefault();
-      let cantidad = $(e.target).children();
-      console.log(cantidad[0].value);
-      addToCart(producto.flower, cantidad[0].value);
+      let cantidad = hijos[4].value;
+      let flor = hijos[3].value;
+      addToCart(flor, cantidad);
       showFinalPrice();
     });
-
-    /*boton.addEventListener("click", (event) => {
-      //let flower_amount = prompt(`¿Cuántas quiere comprar?`);
-
-      addToCart(producto.flower, cantidad[0]);
-
-      showFinalPrice();
-    });*/
-
-    let nodo = document.createElement("div");
-    nodo.innerHTML = contenedor;
-    contenedor.appendChild(boton);
-
-    document.getElementById("catalogo").appendChild(contenedor);
-  }
+  });
 }
 
-mostrarCatálogo(products);
+mostrarCatálogo();
