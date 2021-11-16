@@ -73,7 +73,7 @@ function addToCart(name, amount) {
 
     //mensaje de compra finalizada.
     $("#historial")
-      .append(`<div> <h3> Usted ha comprado: ${amount} ${name}s. <h3>
+      .append(`<div> <h3> Usted ha agregado ${amount} ${name}s al carrito. <h3>
     </div>`);
   } else {
     //no hay stock del producto
@@ -144,6 +144,10 @@ function mostrarCatálogo(array) {
                   <h3 class="card-title"> Nombre: ${producto.flower}</h3>
                   <p class="card-text"> Cantidad en stock: ${producto.stock}</p>
                   <p class="card-text"> Precio unidad: $${producto.price}</p>
+                  <form id="form_compra"> 
+                  <input type="number" id="compra">
+                  <input type="submit" value="Agregar"> 
+                  </form>
               </div>
           </div>
           `;
@@ -154,13 +158,21 @@ function mostrarCatálogo(array) {
     boton.innerText = "Agregar al carrito";
     boton.id = producto.id;
 
-    boton.addEventListener("click", (event) => {
-      let flower_amount = prompt(`¿Cuántas quiere comprar?`);
-
-      addToCart(producto.flower, flower_amount);
-
+    $(`#form_compra`).submit(function (e) {
+      e.preventDefault();
+      let cantidad = $(e.target).children();
+      console.log(cantidad[0].value);
+      addToCart(producto.flower, cantidad[0].value);
       showFinalPrice();
     });
+
+    /*boton.addEventListener("click", (event) => {
+      //let flower_amount = prompt(`¿Cuántas quiere comprar?`);
+
+      addToCart(producto.flower, cantidad[0]);
+
+      showFinalPrice();
+    });*/
 
     let nodo = document.createElement("div");
     nodo.innerHTML = contenedor;
