@@ -33,6 +33,14 @@ let products = [
 let shopping_cart = [];
 let final_price = 0;
 
+function addStock(flower, amount) {
+  //encuentro la flor
+  let producto = products.find((e) => e.flower === flower.toLowerCase());
+  if (producto != undefined) {
+    producto.stock += amount;
+  }
+}
+
 //----------------------------- Simulador de menu de compras
 
 // Agrega una cantidad de una flor en particular al carrito.
@@ -62,6 +70,11 @@ function addToCart(name, amount) {
       check.amount += amount;
       final_price += amount * check.price;
     }
+
+    //mensaje de compra finalizada.
+    $("#historial")
+      .append(`<div> <h3> Usted ha comprado: ${amount} ${name}s. <h3>
+    </div>`);
   } else {
     //no hay stock del producto
     alert(
@@ -89,13 +102,17 @@ function mostrarProductosEnHTML(array) {
 }
 
 function emptyShoppingCart() {
-  console.log(final_price);
+  //seteo el total a pagar en 0
   final_price = 0;
-  console.log(final_price);
+  //renuevo el stock
+  for (const producto of shopping_cart) {
+    addStock(producto.flower, producto.amount);
+  }
 
-  console.log(`longitud antes de borrar: ${shopping_cart.length}`);
   shopping_cart.splice(0, shopping_cart.length);
-  console.log(`longitud luego de borrar: ${shopping_cart.length}`);
+  $("#historial").append(`<div>
+  <h3> Usted ha borrado todo su carrito. Su precio final actual: $${final_price}.</h3>
+  </div>`);
 }
 
 function showFinalPrice() {
@@ -116,7 +133,7 @@ function showFinalPrice() {
   fin.appendChild(botonNode);
 }
 
-//-----------------------------Imprimir catálogo
+//-----------------------------Imprimir catálogo y sistema de compras.
 
 function mostrarCatálogo(array) {
   for (const producto of array) {
@@ -141,7 +158,7 @@ function mostrarCatálogo(array) {
       let flower_amount = prompt(`¿Cuántas quiere comprar?`);
 
       addToCart(producto.flower, flower_amount);
-      mostrarProductosEnHTML(shopping_cart);
+
       showFinalPrice();
     });
 
