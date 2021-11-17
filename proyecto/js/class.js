@@ -29,6 +29,17 @@ let products = [
   { id: 3, flower_name: "petunia", price: 100, stock: 20 },
 ];
 
+//desafio json
+console.log(products);
+
+localStorage.setItem("productos2", JSON.stringify(products));
+const productsJson = localStorage.getItem("productos2");
+console.log(productsJson);
+console.log(typeof productsJson);
+
+const productsOG = JSON.parse(productsJson);
+console.log(productsOG);
+
 // Carrito inicial
 let shopping_cart = [];
 let final_price = 0;
@@ -98,6 +109,7 @@ function emptyShoppingCart() {
   $("#historial").append(`<div>
   <h3> Usted ha borrado todo su carrito. Su precio final actual: $${final_price}.</h3>
   </div>`);
+  $("#fin").remove();
 }
 
 function showFinalPrice() {
@@ -127,7 +139,7 @@ function mostrarCatálogo() {
           <div class="card">
               <div class="card-body2">
                   <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
-                  <p class="card-text"> Cantidad en stock: ${producto.stock}</p>
+                  <p class="card-text" id="${producto.id}"> Cantidad en stock: ${producto.stock}</p>
                   <p class="card-text"> Precio unidad: $${producto.price}</p>
                   
                     <input type="hidden" value="${producto.flower_name}" >
