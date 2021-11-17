@@ -106,10 +106,12 @@ function emptyShoppingCart() {
   }
 
   shopping_cart.splice(0, shopping_cart.length);
+
+  $("#historial").empty();
   $("#historial").append(`<div>
-  <h3> Usted ha borrado todo su carrito. Su precio final actual: $${final_price}.</h3>
+  <h3> Usted ha borrado su carrito anterior.</h3>
   </div>`);
-  $("#fin").remove();
+  $("#fin").empty();
 }
 
 function showFinalPrice() {
