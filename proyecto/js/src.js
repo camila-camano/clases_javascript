@@ -1,5 +1,6 @@
 // -------------------------------------Funciones del sistema
 
+// Agrega al catálogo
 function addStock(flower_name, amount) {
   //encuentro la flor
   let producto = products.find(
@@ -9,8 +10,6 @@ function addStock(flower_name, amount) {
     producto.stock += amount;
   }
 }
-
-//----------------------------- Simulador de menu de compras
 
 // Agrega una cantidad de una flor en particular al carrito.
 function addToCart(name, amount) {
@@ -49,7 +48,7 @@ function addToCart(name, amount) {
   }
 }
 
-// Eliminar todos los productos del carrito.
+// Elimina todos los productos del carrito.
 function emptyShoppingCart() {
   //seteo el total a pagar en 0
   final_price = 0;
@@ -67,7 +66,7 @@ function emptyShoppingCart() {
   $("#fin").empty();
 }
 
-// Mostrar precio a pagar.
+// Muestra precio a pagar.
 function showFinalPrice() {
   let fin = document.querySelector("#fin");
   fin.innerHTML = `
@@ -86,8 +85,7 @@ function showFinalPrice() {
   fin.appendChild(botonNode);
 }
 
-//Imprimir catálogo y sistema de compras.
-
+//Imprime catálogo y sistema de compras.
 function mostrarCatálogo() {
   products.forEach((producto) => {
     let contenedor = document.createElement("carta");
