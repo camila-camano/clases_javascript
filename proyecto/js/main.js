@@ -1,6 +1,7 @@
 // -------------------------------------Sistema
 
 // Productos del catálogo
+
 let products = [
   { id: 1, flower_name: "margarita", price: 50, stock: 12 },
   { id: 2, flower_name: "rosa", price: 150, stock: 23 },
@@ -23,4 +24,24 @@ const productsOG = JSON.parse(productsJson);
 console.log(productsOG);
 
 // main
+
+//test json
+/*
+URLJSON = `data/data.json`;
+
+$("#eventos").prepend(`<button id="btn1"> JSON</button>`);
+
+$(`#btn1`).click(() =>
+  $.get(URLJSON, (respuesta, estado) => {
+    if (estado === "success") {
+      let misDatos = respuesta;
+      for (const dato of misDatos) {
+        $("#eventos").prepend(`<div>
+                                    <h3>${dato.flower_name}</h3>
+                                    </div>`);
+      }
+    }
+  })
+);
+*/
 mostrarCatálogo();

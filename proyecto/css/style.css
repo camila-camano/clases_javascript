@@ -5,18 +5,14 @@
 }
 
 /*----------carrito-------------*/
-.carrito {
-  display: flex;
-  flex-direction: row;
-}
 
 .card-body {
   background-color: #ffe8d6;
   border: 2px bold black;
 
   display: flex;
-  flex-direction: row;
-  justify-items: center;
+  align-items: center;
+  margin: 10px;
 }
 
 .card-title {
@@ -37,7 +33,6 @@
   flex-direction: row;
   justify-items: center;
   justify-content: space-around;
-  space;
 }
 
 .card-body2 {

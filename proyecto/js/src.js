@@ -36,6 +36,7 @@ function addToCart(name, amount) {
       final_price += amount * check.price;
     }
 
+    mostrarEnCarrito(producto, amount);
     //mensaje de compra finalizada.
     $("#historial")
       .append(`<div> <h3> Usted ha agregado ${amount} ${name}s al carrito. <h3>
@@ -64,6 +65,7 @@ function emptyShoppingCart() {
     <h3> Usted ha borrado su carrito anterior.</h3>
     </div>`);
   $("#fin").empty();
+  $("#carrito").empty();
 }
 
 // Muestra precio a pagar.
@@ -117,4 +119,16 @@ function mostrarCatálogo() {
       showFinalPrice();
     });
   });
+}
+
+//Imprime en el carrito el producto
+function mostrarEnCarrito(producto, amount) {
+  let carta_carrito = document.createElement("div");
+  carta_carrito.innerHTML = `
+  <div id="${producto.id}" class="card-body">
+  <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
+  <p class="card-text" > Cantidad: ${amount}</p>
+ <input type="button" class="boton_quitar" value="Quitar">
+  `;
+  $("#carrito").append(carta_carrito);
 }
