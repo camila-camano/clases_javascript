@@ -1,5 +1,5 @@
 [
-  { "id": 1, "flower_name": "tulipan", "price": 50, "stock": 12 },
-  { "id": 2, "flower_name": "lila", "price": 150, "stock": 23 },
-  { "id": 3, "flower_name": "lavanda", "price": 100, "stock": 20 }
+  { "id": 1, "flower_name": "tulipan", "price": 50 },
+  { "id": 2, "flower_name": "lila", "price": 150 },
+  { "id": 3, "flower_name": "lavanda", "price": 100 }
 ]
