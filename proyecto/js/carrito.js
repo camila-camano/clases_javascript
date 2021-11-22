@@ -3,26 +3,33 @@
 // Agrega una cantidad de una flor en particular al carrito.
 
 function addToCart(name, amount) {
-  console.log(amount);
-  amount = parseInt(amount);
-  let producto = products.find((e) => e.flower_name == name.toLowerCase());
-  let check = JSON.parse(localStorage.getItem(`${producto.id}`));
+  $.get(URL_flores, function (res, state) {
+    if (state === "success") {
+      console.log(res);
+      let products = res;
 
-  if (check == undefined) {
-    //no está en el carrito, lo creo
+      console.log(name);
+      amount = parseInt(amount);
+      let producto = products.find((e) => e.flower_name == name.toLowerCase());
+      let check = JSON.parse(localStorage.getItem(`${producto.id}`));
 
-    let comprado = new Compra(producto.id, name, producto.price, amount);
-    localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
-  } else {
-    //está en el carrito, lo reescribo
-    let comprado = new Compra(
-      producto.id,
-      name,
-      producto.price,
-      amount + check.amount
-    );
-    localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
-  }
+      if (check == undefined) {
+        //no está en el carrito, lo creo
+
+        let comprado = new Compra(producto.id, name, producto.price, amount);
+        localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
+      } else {
+        //está en el carrito, lo reescribo
+        let comprado = new Compra(
+          producto.id,
+          name,
+          producto.price,
+          amount + check.amount
+        );
+        localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
+      }
+    }
+  });
 }
 
 // Elimina todos los productos del carrito.
@@ -69,7 +76,9 @@ function mostrarEnCarrito(producto) {
   `;
   $("#carrito").append(carta_carrito);
 
-  $("#boton_quitar").click((e) => {
-    console.log(`quiero sacar el ${producto.id}`);
+  $(document).ready(function () {
+    $("#boton_quitar").click((e) => {
+      console.log(`quiero sacar el ${producto.id}`);
+    });
   });
 }
