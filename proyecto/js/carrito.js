@@ -9,22 +9,25 @@ function addToCart(name, amount) {
   let check = JSON.parse(localStorage.getItem(`${producto.id}`));
 
   if (check == undefined) {
-    //no está en el carrito, lo creo y agrego al carrito
+    //no está en el carrito, lo creo
 
     let comprado = new Compra(producto.id, name, producto.price, amount);
     localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
   } else {
-    //está en el carrito, le sumo la cantidad nueva y lo sumo al precio final
-    check.amount += amount;
+    //está en el carrito, lo reescribo
+    let comprado = new Compra(
+      producto.id,
+      name,
+      producto.price,
+      amount + check.amount
+    );
+    localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
   }
 }
 
 // Elimina todos los productos del carrito.
 function emptyShoppingCart() {
-  //seteo el total a pagar en 0
-
   localStorage.clear();
-  //renuevo el stock
 
   $("#historial").empty();
   $("#historial").append(`<div>
@@ -34,8 +37,21 @@ function emptyShoppingCart() {
   $("#carrito").empty();
 }
 
+function botonCarrito() {
+  let boton_carrito = document.createElement("div");
+  boton_carrito.innerHTML = `
+ <input type="button" id="boton_carrito" value="Mostrar carrito y precio.">
+  `;
+  $("#boton_carrito").append(boton_carrito);
+  $("#boton_carrito").click(function (e) {
+    mostrarCarrito();
+    showFinalPrice();
+  });
+}
+
 // Imprime todo el carrito
 function mostrarCarrito() {
+  $("#carrito").empty();
   for (let index = 0; index < localStorage.length; index++) {
     let producto = JSON.parse(localStorage.getItem(localStorage.key(index)));
     mostrarEnCarrito(producto);
@@ -49,7 +65,11 @@ function mostrarEnCarrito(producto) {
   <div id="${producto.id}" class="card-body">
   <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
   <p class="card-text" > Cantidad: ${producto.amount}</p>
- <input type="button" class="boton_quitar" value="Quitar">
+ <input type="button" id="boton_quitar" value="Quitar">
   `;
   $("#carrito").append(carta_carrito);
+
+  $("#boton_quitar").click((e) => {
+    console.log(`quiero sacar el ${producto.id}`);
+  });
 }

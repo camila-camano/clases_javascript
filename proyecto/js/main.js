@@ -15,4 +15,4 @@ let products = [
 // main
 
 mostrarCatálogo();
-mostrarCarrito();
+botonCarrito();
