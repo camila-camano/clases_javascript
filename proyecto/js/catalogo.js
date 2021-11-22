@@ -19,7 +19,7 @@ function mostrarCatálogo() {
                           <p class="card-text"> Precio unidad: $${producto.price}</p>
                             <input type="hidden" value="${producto.flower_name}" >
                             <input type="number" id="compra">
-                            <input type="button" id="boton_compra" value="Agregar"> 
+                            <button  id="boton_compra">Agregar</button>
                       </div>
                   </div>
                   `;
