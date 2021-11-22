@@ -1,6 +1,7 @@
 // ------------------- Funciones del catálogo
 
 // Agrega stock al catálogo
+
 function addStock(flower_name, amount) {
   //encuentro la flor
   let producto = products.find(
@@ -19,7 +20,7 @@ function mostrarCatálogo() {
               <div class="card">
                   <div class="card-body2">
                       <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
-                      <p class="card-text" id="${producto.id}"> Cantidad en stock: ${producto.stock}</p>
+                      
                       <p class="card-text"> Precio unidad: $${producto.price}</p>
                       
                         <input type="hidden" value="${producto.flower_name}" >
@@ -37,8 +38,8 @@ function mostrarCatálogo() {
     $(".boton_compra").click(function (e) {
       let hijos = $(e.target).parent().children();
 
-      let cantidad = hijos[4].value;
-      let flor = hijos[3].value;
+      let cantidad = hijos[3].value;
+      let flor = hijos[2].value;
       addToCart(flor, cantidad);
       showFinalPrice();
     });
