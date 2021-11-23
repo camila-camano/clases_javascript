@@ -31,6 +31,7 @@ function agregarAlArreglo(name, amount) {
       //});
     }
   });
+  $("#mensaje_borrado").remove();
 }
 
 // Elimina todos los productos del carrito.
