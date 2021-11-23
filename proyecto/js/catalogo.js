@@ -4,8 +4,8 @@ const URL_flores = "./js/data/data.json";
 
 // Muestra el catálogo de flores.
 function mostrarCatálogo() {
-  $("body").prepend(
-    `<button id="boton_catalogo"> Mostrar flores disponibles</button>`
+  $("#catalogo").prepend(
+    `<button id="boton_catalogo" class="btn btn-danger"> Mostrar flores disponibles</button>`
   );
 
   $("#boton_catalogo").click(() => {
@@ -22,7 +22,7 @@ function mostrarCatálogo() {
                           <p class="card-text"> Precio unidad: $${producto.price}</p>
                             <input type="hidden" value="${producto.flower_name}" >
                             <input type="number" id="compra">
-                            <button  id="boton_compra">Agregar al arreglo</button>
+                            <button  id="boton_compra" class="btn btn-danger">Agregar al arreglo</button>
                       </div>
                   </div>
                   `;

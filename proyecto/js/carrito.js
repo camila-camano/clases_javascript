@@ -49,7 +49,7 @@ function vaciarArreglo() {
 function botonCarrito() {
   let boton_carrito = document.createElement("div");
   boton_carrito.innerHTML = `
- <input type="button" id="boton_carrito" value="Actualizar arreglo y precio.">
+ <input type="button" id="boton_carrito" class="btn btn-danger" value="Actualizar arreglo y precio.">
   `;
   $("#boton_carrito").append(boton_carrito);
   $("#boton_carrito").click(function (e) {
@@ -76,7 +76,7 @@ function mostrarEnCarrito(producto) {
   <input type="hidden" value="${producto.id}" >
   <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
   <p class="card-text" > Cantidad: ${producto.amount}</p>
-  <button id="boton_quitar">Quitar</button>
+  <button id="boton_quitar" class="btn btn-danger">Quitar</button>
   `;
   $("#carrito").append(carta_carrito);
 
