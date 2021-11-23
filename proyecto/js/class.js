@@ -1,6 +1,6 @@
 // -------------------------------------Clases utilizadas
 
-// Clase para los productos, que tiene el nombre de la flor, su precio y el stock.
+// Clase para los productos, que tiene el id, nombre y precio de la flor.
 class Product {
   constructor(id, flower_name, price) {
     (this.id = id), (this.flower_name = flower_name), (this.price = price);

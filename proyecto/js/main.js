@@ -3,5 +3,4 @@
 // main
 
 mostrarCatálogo();
-
 botonCarrito();

@@ -1,8 +1,7 @@
 // -------------------------------------Funciones del carrito
 
 // Agrega una cantidad de una flor en particular al carrito.
-
-function addToCart(name, amount) {
+function agregarAlArreglo(name, amount) {
   $.get(URL_flores, function (res, state) {
     if (state === "success") {
       //console.log(res);
@@ -35,26 +34,27 @@ function addToCart(name, amount) {
 }
 
 // Elimina todos los productos del carrito.
-function emptyShoppingCart() {
+function vaciarArreglo() {
   localStorage.clear();
 
   $("#historial").empty();
   $("#historial").append(`<div>
-    <h3> Usted ha borrado su carrito anterior.</h3>
+    <h3> Usted ha borrado todo su arreglo anterior.</h3>
     </div>`);
   $("#fin").empty();
   $("#carrito").empty();
 }
 
+// Agrega botón para mostrar el carrito.
 function botonCarrito() {
   let boton_carrito = document.createElement("div");
   boton_carrito.innerHTML = `
- <input type="button" id="boton_carrito" value="Mostrar carrito y precio.">
+ <input type="button" id="boton_carrito" value="Actualizar arreglo y precio.">
   `;
   $("#boton_carrito").append(boton_carrito);
   $("#boton_carrito").click(function (e) {
     mostrarCarrito();
-    showFinalPrice();
+    mostrarPrecioFinal();
   });
 }
 
@@ -67,7 +67,7 @@ function mostrarCarrito() {
   }
 }
 
-//Imprime el producto en el carrito.
+//Imprime un producto en el carrito.
 function mostrarEnCarrito(producto) {
   let carta_carrito = document.createElement("div");
   carta_carrito.innerHTML = `
@@ -79,12 +79,13 @@ function mostrarEnCarrito(producto) {
   <button id="boton_quitar">Quitar</button>
   `;
   $("#carrito").append(carta_carrito);
+
+  //Quita todo el producto del carrito
+  $("body").on("click", "#boton_quitar", function (e) {
+    let hijos = $(e.target).parent().children();
+    let flor_id = hijos[0].value;
+
+    $(`#carta-${flor_id}`).remove();
+    localStorage.removeItem(flor_id);
+  });
 }
-
-$("body").on("click", "#boton_quitar", function (e) {
-  let hijos = $(e.target).parent().children();
-  let flor_id = hijos[0].value;
-
-  $(`#carta-${flor_id}`).remove();
-  localStorage.removeItem(flor_id);
-});
