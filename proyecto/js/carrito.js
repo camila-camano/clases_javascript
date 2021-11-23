@@ -5,7 +5,7 @@
 function addToCart(name, amount) {
   $.get(URL_flores, function (res, state) {
     if (state === "success") {
-      console.log(res);
+      //console.log(res);
       let products = res;
 
       console.log(name);
@@ -28,6 +28,8 @@ function addToCart(name, amount) {
         );
         localStorage.setItem(`${comprado.id}`, JSON.stringify(comprado));
       }
+      //}
+      //});
     }
   });
 }
