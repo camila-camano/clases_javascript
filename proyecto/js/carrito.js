@@ -39,7 +39,7 @@ function vaciarArreglo() {
 
   $("#historial").empty();
   $("#historial").append(`<div>
-    <h3> Usted ha borrado todo su arreglo anterior.</h3>
+    <h3 id="mensaje_borrado" style="height: 120px"> Usted ha borrado todo su arreglo anterior.</h3>
     </div>`);
   $("#fin").empty();
   $("#carrito").empty();

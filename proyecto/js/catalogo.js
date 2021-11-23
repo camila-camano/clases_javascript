@@ -8,7 +8,7 @@ function mostrarCatálogo() {
     `<button id="boton_catalogo" class="btn btn-danger"> Mostrar flores disponibles</button>`
   );
 
-  $("#boton_catalogo").click(() => {
+  $("body").on("click", "#boton_catalogo", function () {
     $.get(URL_flores, function (res, state) {
       if (state === "success") {
         console.log(res);
@@ -16,8 +16,8 @@ function mostrarCatálogo() {
           console.log(producto);
           let contenedor = document.createElement("carta");
           contenedor.innerHTML = `
-                  <div class="card">
-                      <div class="card-body2">
+                  <div class="card" id="carta">
+                      <div class="card-body2" >
                           <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
                           <p class="card-text"> Precio unidad: $${producto.price}</p>
                             <input type="hidden" value="${producto.flower_name}" >
@@ -30,10 +30,13 @@ function mostrarCatálogo() {
         });
       }
     });
+
+    $("#boton_catalogo").hide();
   });
 }
 
 $("body").on("click", "#boton_compra", function (e) {
+  $("#carta").fadeIn("slow");
   let hijos = $(e.target).parent().children();
 
   let cantidad = hijos[3].value;
