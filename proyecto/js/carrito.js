@@ -71,16 +71,19 @@ function mostrarCarrito() {
 function mostrarEnCarrito(producto) {
   let carta_carrito = document.createElement("div");
   carta_carrito.innerHTML = `
-  <div id="${producto.id}" class="card-body">
+  <div id="carta-${producto.id}" class="card-body">
+
+  <input type="hidden" value="${producto.id}" >
   <h3 class="card-title"> Nombre: ${producto.flower_name}</h3>
   <p class="card-text" > Cantidad: ${producto.amount}</p>
- <input type="button" id="boton_quitar" value="Quitar">
+  <button id="boton_quitar">Quitar</button>
   `;
   $("#carrito").append(carta_carrito);
-
-  $(document).ready(function () {
-    $("#boton_quitar").click((e) => {
-      console.log(`quiero sacar el ${producto.id}`);
-    });
-  });
 }
+
+$("body").on("click", "#boton_quitar", function (e) {
+  let hijos = $(e.target).parent().children();
+  let flor_id = hijos[0].value;
+  console.log(flor_id);
+  $(`#carta-${flor_id}`).remove();
+});
