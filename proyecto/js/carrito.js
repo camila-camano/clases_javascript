@@ -84,6 +84,7 @@ function mostrarEnCarrito(producto) {
 $("body").on("click", "#boton_quitar", function (e) {
   let hijos = $(e.target).parent().children();
   let flor_id = hijos[0].value;
-  console.log(flor_id);
+
   $(`#carta-${flor_id}`).remove();
+  localStorage.removeItem(flor_id);
 });
