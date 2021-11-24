@@ -10,7 +10,8 @@ function mostrarPrecioFinal() {
 
   //boton para borrar carrito
   let delete_button = document.createElement("button");
-  delete_button.innerText = "Borrar carrito";
+  delete_button.innerHTML = `<input type="button" id="boton_eliminar" class="btn btn-danger" value="Eliminar arreglo.">
+  `;
   delete_button.addEventListener("click", (event) => {
     vaciarArreglo();
   });

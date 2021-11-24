@@ -13,7 +13,7 @@ body {
 
 h2 {
   font-size: 50px;
-  padding: 50px;
+  padding: 25px;
   color: white;
 }
 
@@ -30,7 +30,7 @@ h2 {
 }
 
 .card-title {
-  color: rgba(235, 25, 165, 0.809);
+  color: black;
 }
 
 .card-text {
